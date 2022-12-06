@@ -64,13 +64,7 @@ $sql = "UPDATE mailnoti SET
                             [filterName] = ? ,
                             [filterValue] = ? ,
                             [imageName] = ? ,
-                            [CRON] = ? ,
-                            [from] = ? ,
-                            [to] = ? ,
-                            [cc] = ? ,
-                            [bcc] = ? ,
-                            [Subject] = ? ,
-                            [Content] = ?
+                            [CRON] = ?
                             WHERE [no] = '".$_GET['no']."' ";
 $params = array($enableX,$mailgroup,$mailtype,$mailid,$mailimagewidth,$mailfiltername,$mailfiltervalue,$mailimagename,$mailcorn);
 
