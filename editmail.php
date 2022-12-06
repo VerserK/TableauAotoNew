@@ -5,7 +5,7 @@ require_once 'connect.php';
 
 $empid = $_SESSION['empid'];
 
-if(isset($_POST['mail_enable'])) {
+if(isset($_POST['mail_enablez'])) {
     // Set "activation_status" to 1.
     $enableX = "x";
 } else { 
@@ -15,21 +15,21 @@ if(isset($_POST['mail_enable'])) {
 
 //$enableX = $_POST['mail_enable'];
 
-$mailgroup = $_POST['mail_mailgroup'];
+$mailgroup = $_POST['mail_mailgroupz'];
 
-$mailtype = $_POST['mail_type'];
+$mailtype = $_POST['mail_typez'];
 
-$mailid = $_POST['mail_id'];
+$mailid = $_POST['mail_idz'];
 
-$mailimagewidth = $_POST['mail_imagewidth'];
+$mailimagewidth = $_POST['mail_imagewidthz'];
 
-$mailfiltername = $_POST['mail_filtername'];
+$mailfiltername = $_POST['mail_filternamez'];
 
-$mailfiltervalue = $_POST['mail_filtervalue'];
+$mailfiltervalue = $_POST['mail_filtervaluez'];
 
-$mailimagename = $_POST['mail_imagename'];
+$mailimagename = $_POST['mail_imagenamez'];
 
-$mailcorn = $_POST['mail_corn'];
+$mailcorn = $_POST['mail_cornz'];
 
 $mailfrom = $_POST['mail_from'];
 
@@ -72,7 +72,17 @@ $sql = "UPDATE mailnoti SET
                             [Subject] = ? ,
                             [Content] = ?
                             WHERE [no] = '".$_GET['no']."' ";
-$params = array($enableX,$mailgroup,$mailtype,$mailid,$mailimagewidth,$mailfiltername,$mailfiltervalue,$mailimagename,$mailcorn,$mailfrom,$mailto_value,$mailcc_value,$mailbcc_value,$mailsubject,$mailcontent);
+$params = array($enableX,$mailgroup,$mailtype,$mailid,$mailimagewidth,$mailfiltername,$mailfiltervalue,$mailimagename,$mailcorn);
+
+$sqleditallmail = "UPDATE mailnoti SET 
+                            [from] = ? ,
+                            [to] = ? ,
+                            [cc] = ? ,
+                            [bcc] = ? ,
+                            [Subject] = ? ,
+                            [Content] = ?
+                            WHERE [MailGroup] = '".$mail_mailgroupz."' ";
+$paramsallmail = array($mailfrom,$mailto_value,$mailcc_value,$mailbcc_value,$mailsubject,$mailcontent);
 
 $sqlselect = "SELECT * FROM mailnoti WHERE no = '".$_GET['no']."' ";
 $queryselect = sqlsrv_query($conn , $sqlselect);
@@ -83,6 +93,7 @@ $paramslogs = array($selectLOGS,$ip,$agent,$session,$url,$actiontype,date("Y-m-d
 $stmtlogs = sqlsrv_query($conn, $sqllogs, $paramslogs);
 
 $stmt = sqlsrv_query( $conn, $sql, $params);
+$stmtallmail = sqlsrv_query( $conn, $sqleditallmail, $paramsallmail);
 if( $stmt === false ) {
     die( print_r( sqlsrv_errors(), true));
 }
