@@ -75,7 +75,7 @@ $sqleditallmail = "UPDATE mailnoti SET
                             [bcc] = ? ,
                             [Subject] = ? ,
                             [Content] = ?
-                            WHERE [MailGroup] = '".$mail_mailgroupz."' ";
+                            WHERE [MailGroup] = '".$mailgroup."' ";
 $paramsallmail = array($mailfrom,$mailto_value,$mailcc_value,$mailbcc_value,$mailsubject,$mailcontent);
 
 $sqlselect = "SELECT * FROM mailnoti WHERE no = '".$_GET['no']."' ";
