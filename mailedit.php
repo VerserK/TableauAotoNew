@@ -418,7 +418,7 @@ require_once "connect.php";
                     <div class="col-md-6 text-right">
                       <button id="testbtn" type="button" class="btn btn-block btn-outline-warning" onclick="fncAction1()" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Order">Test Send</button>
                       <button type="button" class="btn btn-block btn-outline-primary" onclick="fncAction2()">Update</button>
-                      <a class="btn btn-block btn-outline-danger" data-val="<?php $resultedit['no'] ?>" href='#' data-toggle='modal' data-target='#modal-delete'>Delete</a>
+                      <a class="btn btn-block btn-outline-danger" data-val="<?php echo $resultedit['no'] ?>" href='#' data-toggle='modal' data-target='#modal-delete'>Delete</a>
                     </div>
                   </div>
                 </div>
