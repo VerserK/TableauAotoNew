@@ -8,7 +8,7 @@ $ip =  $_SERVER['REMOTE_ADDR'];
 $agent = $_SERVER['HTTP_USER_AGENT'];
 $session = session_id();
 $url = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-$actiontype = 'dalete';
+$actiontype = 'daleteOnce';
 
 $sqldelete = "DELETE FROM [dbo].[mailnoti] WHERE [no] = ? ";
 $params = array($_GET['no']);
