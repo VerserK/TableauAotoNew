@@ -312,10 +312,6 @@ require_once "connect.php";
                           <input class="example7-input form-control form-control-border" id="mail_corn" name="mail_cornz" value="<?php echo $resultedit['CRON']; ?>" readonly/>
                       </div>
 
-                      <div class="col-md-6">
-                        <input type="button" id="add" name="add" value="Add Data" onclick="addData();" class="btn btn-block btn-outline-info">
-                      </div>
-
                       <div class="form-group">
                         <label for="exampleInputBorder">FROM</label>
                         <i class="fa fa-info-circle" style="color:blue" aria-hidden="true" data-html="true" data-toggle="tooltip" data-placement="top" title="รูปแบบการตั้ง Email<br>
