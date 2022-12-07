@@ -5,15 +5,6 @@ require_once 'connect.php';
 
 $empid = $_SESSION['empid'];
 
-// if(isset($_POST['mail_enable'])) {
-//     // Set "activation_status" to 1.
-//     $enableX = "x";
-// } else { 
-//     // Set "activation_status" to 0.
-//     $enableX = "";
-// }
-
-
     $mailRowz=$_POST['mail_rowz'];
     $mailEnablez=$_POST['mail_enablez'];
     $mailGroupz=$_POST['mail_mailgroupz'];
@@ -47,11 +38,22 @@ $empid = $_SESSION['empid'];
         $stmt = sqlsrv_query( $conn, $save, $params);
     }
 
+    $sqleditallmail = "UPDATE mailnoti SET 
+                            [from] = ? ,
+                            [to] = ? ,
+                            [cc] = ? ,
+                            [bcc] = ? ,
+                            [Subject] = ? ,
+                            [Content] = ?
+                            WHERE [MailGroup] = '".$mailgroup."' ";
+    $paramsallmail = array($mailfrom,$mailto_value,$mailcc_value,$mailbcc_value,$mailsubject,$mailcontent);
+    $stmtallmail = sqlsrv_query( $conn, $sqleditallmail, $paramsallmail);
+
 $ip =  $_SERVER['REMOTE_ADDR'];
 $agent = $_SERVER['HTTP_USER_AGENT'];
 $session = session_id();
 $url = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-$actiontype = 'submit';
+$actiontype = 'insertMail';
 
 $sql = "INSERT INTO mailnoti ([Enable],[MailGroup],[type],[ID],[ImageWidth],[filterName],[filterValue],[imageName],[CRON],[from],[to],[cc],[bcc],[Subject],[Content],[empid]) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 $params = array($enableX,$mailgroup,$mailtype,$mailid,$mailimagewidth,$mailfiltername,$mailfiltervalue,$mailimagename,$mailcorn,$mailfrom,$mailto_value,$mailcc_value,$mailbcc_value,$mailsubject,$mailcontent,$empid);

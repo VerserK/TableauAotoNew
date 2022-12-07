@@ -32,8 +32,6 @@ require_once "connect.php";
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
   <!-- SweetAlert2 -->
   <link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
-  <!-- Toastr -->
-  <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -179,68 +177,103 @@ require_once "connect.php";
               $resultedit = sqlsrv_fetch_array($queryedit, SQLSRV_FETCH_ASSOC);
             ?>
 
-    <script type="text/javascript">
+<script type="text/javascript">
       function fncAction1()
       {
-          if (mail_id.value.length == 0){ 
-            alert("Please enter Dashboard ID");  	
-            document.getElementById("mail_id").focus();
-            return false; 
-          }else if(mail_imagename.value.length == 0){
-            alert("Please enter imageName");
-            document.getElementById("mail_imagename").focus();
-            return false; 
-          }else if(mail_corn.value.length == 0){
-            alert("Please enter Time Send"); 
-            document.getElementById("mail_corn").focus(); 	
-            return false;
-          }else if(mail_mailto.value.length == 0){
-            alert("Please Select Contacts");
-            document.getElementById("mail_mailto").focus(); 
-            return false;
-          }else if(summernote.value.length == 0){
-            alert("Please Select Contacts");
-            document.getElementById("summernote").focus(); 
-            return false;
-          }else{
-            document.addRow.action='testSend.php';
-            document.addRow.target='iframe_target';
-            document.createElement('form').submit.call(document.addRow);
+        if(mail_id.value.length != 0){
+          alert("Please ADD Data");
+          document.getElementById("add").focus();
+          return false;
+        }
+        if(document.getElementById("tbl").rows.length > 1){
+            if(mail_mailto.value.length == 0){
+              alert("Please Select Contacts");
+              document.getElementById("mail_mailto").focus(); 
+              return false;
+            }else if(mail_subject.value.length == 0){
+              alert("Please enter Subject");
+              document.getElementById("mail_subject").focus(); 
+              return false;
+            }else if(summernote.value.length == 0){
+              alert("Please Select Content");
+              document.getElementById("summernote").focus(); 
+              return false;
+            }else{
+              document.addRow.action='testSend.php';
+              document.addRow.target='iframe_target';
+              document.createElement('form').submit.call(document.addRow)
+            }
+          }else if(document.getElementById("tbl").rows.length = 1){
+            if (mail_id.value.length == 0){ 
+              alert("Please enter Dashboard ID");  	
+              document.getElementById("mail_id").focus();
+              return false; 
+            }else if(mail_imagename.value.length == 0){
+              alert("Please enter imageName");
+              document.getElementById("mail_imagename").focus();
+              return false; 
+            }else if(mail_corn.value.length == 0){
+              alert("Please enter Time Send"); 
+              document.getElementById("mail_corn").focus(); 	
+              return false;
+            }else if(mail_mailto.value.length == 0){
+              alert("Please Select Contacts");
+              document.getElementById("mail_mailto").focus(); 
+              return false;
+            }else{
+              return true;
+            }
           }
+
       }
       function fncAction2()
       {
-        if (mail_id.value.length == 0){ 
-            alert("Please enter Dashboard ID");  	
-            document.getElementById("mail_id").focus();
-            return false; 
-          }else if(mail_imagename.value.length == 0){
-            alert("Please enter imageName");
-            document.getElementById("mail_imagename").focus();
-            return false; 
-          }else if(mail_corn.value.length == 0){
-            alert("Please enter Time Send"); 
-            document.getElementById("mail_corn").focus(); 	
-            return false;
-          }else if(mail_mailto.value.length == 0){
-            alert("Please Select Contacts");
-            document.getElementById("mail_mailto").focus(); 
-            return false;
-          }else if(summernote.value.length == 0){
-            alert("Please Select Contacts");
-            document.getElementById("summernote").focus(); 
-            return false;
-          }else{
-            document.addRow.action='editmail?no=<?php echo $resultedit['no']; ?>';
-            document.addRow.target='_self';
-            document.createElement('form').submit.call(document.addRow);
+        if(mail_id.value.length != 0){
+          alert("Please ADD Data");
+          document.getElementById("add").focus();
+          return false;
+        }
+        if(document.getElementById("tbl").rows.length > 1){
+            if(mail_mailto.value.length == 0){
+              alert("Please Select Contacts");
+              document.getElementById("mail_mailto").focus(); 
+              return false;
+            }else if(mail_subject.value.length == 0){
+              alert("Please enter Subject");
+              document.getElementById("mail_subject").focus(); 
+              return false;
+            }else{
+              document.addRow.action='insertmail.php';
+              document.addRow.target='_self';
+              document.createElement('form').submit.call(document.addRow)
+            }
+          }else if(document.getElementById("tbl").rows.length = 1){
+            if (mail_id.value.length == 0){ 
+              alert("Please enter Dashboard ID");  	
+              document.getElementById("mail_id").focus();
+              return false; 
+            }else if(mail_imagename.value.length == 0){
+              alert("Please enter imageName");
+              document.getElementById("mail_imagename").focus();
+              return false; 
+            }else if(mail_corn.value.length == 0){
+              alert("Please enter Time Send"); 
+              document.getElementById("mail_corn").focus(); 	
+              return false;
+            }else if(mail_mailto.value.length == 0){
+              alert("Please Select Contacts");
+              document.getElementById("mail_mailto").focus(); 
+              return false;
+            }else{
+              return true;
+            }
           }
       }
     </script>
 
     <!-- Main content -->
     <section class="content">
-      <form action="editmail?no=<?php echo $resultedit['no']; ?>" method="POST" name="addRow">
+      <form action="insertmail" method="POST" name="addRow">
         <iframe id="iframe_target" name="iframe_target" src="#" hidden></iframe>
       <div class="container-fluid">
         <div class="row">
@@ -255,12 +288,46 @@ require_once "connect.php";
               <!-- /.card-header -->
               <div class="card-body">
                 <div class="row">
+
+                <div class="col-md-12">
+                  <p id="demo"></p>
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title">Add Data Table</h3>
+                    </div>
+                    <div class="card-body">
+                      <table id="tbl" class="table table-sm">
+                        <thead>
+                          <tr>
+                            <th>No</th>
+                            <th>Enable</th>
+                            <th>MailGroup</th>
+                            <th>Type</th>
+                            <th>ID</th>
+                            <th>ImageWidth</th>
+                            <th>filterName</th>
+                            <th>filterValue</th>
+                            <th>imageName</th>
+                            <th>Time</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                      </table>
+                    </div>
+                    <!-- /.card-body -->
+                  </div>
+                  </div>
+
                   <!-- left column mini -->
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="exampleInputBorder">Enable</label>
                         <div class="card-body">
-                        <input value="<?php echo $resultedit['Enable']; ?>" type="checkbox" name="mail_enablez" data-on-text="Enable" data-off-text="Disable" data-bootstrap-switch data-off-color="danger" data-on-color="success" <?php if (strpos($resultedit['Enable'],'x') !== false) echo 'checked="checked" value="x"'; ?>>
+                        <input type="checkbox" id="mail_enable" name="mail_enable" data-on-text="Enable" data-off-text="Disable" data-bootstrap-switch data-off-color="danger" data-on-color="success" checked>
+                          <input type="hidden" id="mail_enable_val" name="mail_enable_val"/>
                         </div>
                     </div>
                       <div class="form-group">
@@ -270,51 +337,52 @@ require_once "connect.php";
 
                       <div class="form-group">
                         <label>Type</label>
-                        <select class="form-control select2bs4" style="width: 100%;" name="mail_typez">
-                          <option <?php if (strpos($resultedit['type'],'dashboard') !== false) echo 'value="dashboard" selected="selected"'; ?>>dashboard</option>
-                          <option <?php if (strpos($resultedit['type'],'excel') !== false) echo 'value="excel" selected="selected"'; ?>>excel</option>
+                        <select class="form-control select2bs4" style="width: 100%;" name="mail_type">
+                          <option selected="selected" value="dashboard">dashboard</option>
+                          <option value="excel">excel</option>
                         </select>
                       </div>
 
                       <div class="form-group">
                         <label for="exampleInputBorder">ID</label>
-                        <a href="#" class="btn btn-block btn-outline-info" data-toggle="modal" data-target="#modal-default" onclick="upload()">ID Viewer</a>
-                        <input type="text" class="form-control form-control-border" id="mail_id" name="mail_idz" value="<?php echo $resultedit['ID']; ?>" autocomplete="off">
+                        <a href="#" class="btn btn-block btn-outline-info" data-toggle="modal" data-target="#modal-default">ID Viewer</a>
+                        <input type="text" class="form-control form-control-border" id="mail_id" name="mail_id" autocomplete=off>
                       </div>
 
                       <div class="form-group">
                         <label for="exampleInputBorder">ImageWidth</label>
-                        <input type="text" class="form-control form-control-border" id="mail_imagewidth" name="mail_imagewidthz" value="<?php echo $resultedit['ImageWidth']; ?>" readonly>
+                        <input type="text" class="form-control form-control-border" id="mail_imagewidth" name="mail_imagewidth" value="500" readonly>
                       </div>
 
                       <div class="form-group">
                         <label for="exampleInputBorder">filterName</label>
-                        <input type="text" class="form-control form-control-border" id="mail_filtername" name="mail_filternamez" value="<?php echo $resultedit['filterName']; ?>" autocomplete="off">
+                        <input type="text" class="form-control form-control-border" id="mail_filtername" name="mail_filtername" autocomplete=off>
                       </div>
 
                       <div class="form-group">
                         <label for="exampleInputBorder">filterValue</label>
-                        <input type="text" class="form-control form-control-border" id="mail_filtervalue" name="mail_filtervaluez" value="<?php echo $resultedit['filterValue']; ?>" autocomplete="off">
+                        <input type="text" class="form-control form-control-border" id="mail_filtervalue" name="mail_filtervalue" autocomplete=off>
                       </div>
 
                       <div class="form-group">
                         <label for="exampleInputBorder">imageName</label>
-                        <input type="text" class="form-control form-control-border" id="mail_imagename" name="mail_imagenamez" value="<?php echo $resultedit['imageName']; ?>" autocomplete="off">
+                        <input type="text" class="form-control form-control-border" id="mail_imagename" name="mail_imagename" autocomplete=off>
                       </div>
-                  </div>
-                  <!-- right column mini -->
-                  <div class="col-md-6">
 
                       <div class="form-group">
                         <label for="exampleInputBorder">Time</label>
                         <!--- somewhere within <body> -->
-                          <div class="example7"></div>
+                          <!-- <div class="example7"></div> -->
                           <input class="example7-input form-control form-control-border" id="mail_corn" name="mail_cornz" value="<?php echo $resultedit['CRON']; ?>" readonly/>
                       </div>
 
                       <div class="col-md-6">
                         <input type="button" id="add" name="add" value="Add Data" onclick="addData();" class="btn btn-block btn-outline-info">
                       </div>
+                      
+                  </div>
+                  <!-- right column mini -->
+                  <div class="col-md-6">
 
                       <div class="form-group">
                         <label for="exampleInputBorder">FROM</label>
@@ -418,7 +486,6 @@ require_once "connect.php";
                     <div class="col-md-6 text-right">
                       <button id="testbtn" type="button" class="btn btn-block btn-outline-warning" onclick="fncAction1()" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Order">Test Send</button>
                       <button type="button" class="btn btn-block btn-outline-primary" onclick="fncAction2()">Update</button>
-                      <a class="btn btn-block btn-outline-danger" data-val="<?php $resultedit['no'] ?>" href='#' data-toggle='modal' data-target='#modal-delete'>Delete</a>
                     </div>
                   </div>
                 </div>
@@ -488,26 +555,6 @@ require_once "connect.php";
 
     </section>
     <!-- /.content -->
-
-          <div class="modal fade" id="modal-delete">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h4 class="modal-title">Want to Delete Data ?</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                  <p>Are you sure you want to delete your Email Notification?</p>
-                </div>
-                <div class="modal-footer justify-content-between">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  <p id="btnDelete"></p>
-                </div>
-              </div>
-            </div>
-
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
@@ -543,8 +590,6 @@ require_once "connect.php";
 <script src="plugins/summernote/summernote-bs4.min.js"></script>
 <!-- SweetAlert2 -->
 <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
-<!-- Toastr -->
-<script src="plugins/toastr/toastr.min.js"></script>
 <!-- DataTables  & Plugins -->
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -583,6 +628,16 @@ $(function () {
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
   })
+
+  var ckbox = $("[name='mail_enable']");
+    var ckbox_val = $("[name='mail_enable_val']");
+
+    ckbox.on('switchChange.bootstrapSwitch init.bootstrapSwitch', function(event,  state) {
+        if (this.checked) ckbox_val.val('x')
+        else ckbox_val.val('')
+    });
+
+   ckbox.bootstrapSwitch('state', true);
 
   $(document).ready(() => {
     // set `this` for this scope.
@@ -668,11 +723,64 @@ function setText(event) {
     $('#modal-default').modal('hide');
   }
 }
-$('#modal-delete').on('show.bs.modal', function (event) {
-  var myVal = $(event.relatedTarget).data('val');
-  var ahrefButton = '<a href="maildeleteonce?no='+myVal+'" type="button" class="btn btn-danger">Delete</a>'
-  document.getElementById('btnDelete').innerHTML += ahrefButton;
-});
+</script>
+<script type="text/javascript">
+  var table = document.getElementsByTagName('table')[0],
+  rows = table.getElementsByTagName('tr'),
+  text = 'textContent' in document ? 'textContent' : 'innerText';
+  console.log(text);
+
+  function addData() {
+    var mailEnable = document.addRow.mail_enable_val.value;
+    var mailGroup = document.addRow.mail_mailgroup.value;
+    var mailType = document.addRow.mail_type.value;
+    var mailId = document.addRow.mail_id.value;
+    var mailImageWidth = document.addRow.mail_imagewidth.value;
+    var mailfilterName = document.addRow.mail_filtername.value;
+    var mailfilterValue = document.addRow.mail_filtervalue.value;
+    var mailimagename = document.addRow.mail_imagename.value;
+    var mailCorn = document.addRow.mail_corn.value;
+    var joker = 0;
+
+    var tr = document.createElement('tr');
+
+    var td1 = tr.appendChild(document.createElement('td'));
+    var td2 = tr.appendChild(document.createElement('td'));
+    var td3 = tr.appendChild(document.createElement('td'));
+    var td4 = tr.appendChild(document.createElement('td'));
+    var td5 = tr.appendChild(document.createElement('td'));
+    var td6 = tr.appendChild(document.createElement('td'));
+    var td7 = tr.appendChild(document.createElement('td'));
+    var td8 = tr.appendChild(document.createElement('td'));
+    var td9 = tr.appendChild(document.createElement('td'));
+    var td10 = tr.appendChild(document.createElement('td'));
+    var td11 = tr.appendChild(document.createElement('td'));
+
+    for (var i = 0, len = rows.length; i < len; i++){
+      td1.innerHTML = '<input type="hidden" name="mail_rowz[]" value="'+ i +'">'+ i;
+    }
+    td2.innerHTML = '<input type="hidden" name="mail_enablez[]" value="'+ mailEnable +'">'+ mailEnable;
+    td3.innerHTML = '<input type="hidden" name="mail_mailgroupz[]" value="'+ mailGroup +'">'+ mailGroup;
+    td4.innerHTML = '<input type="hidden" name="mail_typez[]" value="'+ mailType +'">'+ mailType;
+    td5.innerHTML = '<input type="hidden" name="mail_idz[]" value="'+ mailId +'">'+ mailId;
+    td6.innerHTML = '<input type="hidden" name="mail_imagewidthz[]" value="'+ mailImageWidth +'">'+ mailImageWidth;
+    td7.innerHTML = '<input type="hidden" name="mail_filternamez[]" value="'+ mailfilterName +'">'+ mailfilterName;
+    td8.innerHTML = '<input type="hidden" name="mail_filtervaluez[]" value="'+ mailfilterValue +'">'+ mailfilterValue;
+    td9.innerHTML = '<input type="hidden" name="mail_imagenamez[]" value="'+ mailimagename +'">'+ mailimagename;
+    td10.innerHTML = '<input type="hidden" name="mail_cornz[]" value="'+ mailCorn +'">'+ mailCorn;
+    td11.innerHTML = '<input type="button" name="delete" value="Delete" onclick="delData(this);" class="btn btn-block btn-outline-danger">'
+
+    document.getElementById("tbl").appendChild(tr);
+    document.getElementById("mail_id").value='';
+    document.getElementById("mail_filtername").value='';
+    document.getElementById("mail_filtervalue").value='';
+    document.getElementById("mail_imagename").value='';
+  }
+  function delData(dRow) {
+    var d = dRow.parentNode.parentNode;
+    d.parentNode.removeChild(d);
+  }
+
 </script>
 </body>
 </html>

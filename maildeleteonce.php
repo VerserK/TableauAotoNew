@@ -10,10 +10,10 @@ $session = session_id();
 $url = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 $actiontype = 'dalete';
 
-$sqldelete = "DELETE FROM [dbo].[mailnoti] WHERE [MailGroup] = ? ";
-$params = array($_GET['MailGroup']);
+$sqldelete = "DELETE FROM [dbo].[mailnoti] WHERE [no] = ? ";
+$params = array($_GET['no']);
 
-$sqlselect = "SELECT * FROM mailnoti WHERE MailGroup = '".$_GET['MailGroup']."' ";
+$sqlselect = "SELECT * FROM mailnoti WHERE [no] = '".$_GET['no']."' ";
 $queryselect = sqlsrv_query($conn , $sqlselect);
 $resultselect = sqlsrv_fetch_array($queryselect, SQLSRV_FETCH_ASSOC);
 $selectLOGS = $resultselect['no']." , ".$resultselect['Enable']." , ".$resultselect['MailGroup']." , ".$resultselect['type']." , ".$resultselect['ID']." , ".$resultselect['ImageWidth']." , ".$resultselect['filterName']." , ".$resultselect['filterValue']." , ".$resultselect['imageName']." , ".$resultselect['CRON']." , ".$resultselect['from']." , ".$resultselect['to']." , ".$resultselect['cc']." , ".$resultselect['bcc']." , ".$resultselect['Subject']." , ".$resultselect['Content']." , ".$resultselect['empid'];
