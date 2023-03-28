@@ -45,7 +45,7 @@ $empid = $_SESSION['empid'];
                             [bcc] = ? ,
                             [Subject] = ? ,
                             [Content] = ?
-                            WHERE [MailGroup] = '".$mailgroup."' ";
+                            WHERE [MailGroup] = '".$mailGroupz."' ";
     $paramsallmail = array($mailfrom,$mailto_value,$mailcc_value,$mailbcc_value,$mailsubject,$mailcontent);
     $stmtallmail = sqlsrv_query( $conn, $sqleditallmail, $paramsallmail);
 

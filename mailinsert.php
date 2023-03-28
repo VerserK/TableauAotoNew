@@ -201,7 +201,10 @@ require_once "connect.php";
             }else{
               document.addRow.action='testSend.php';
               document.addRow.target='iframe_target';
-              document.createElement('form').submit.call(document.addRow)
+              document.createElement('form').submit.call(document.addRow);
+              setTimeout(function() {
+                  $('#modal-check-test').modal('hide');
+              }, 8000);
             }
           }else if(document.getElementById("tbl").rows.length = 1){
             if (mail_id.value.length == 0){ 
@@ -290,7 +293,6 @@ require_once "connect.php";
                 <div class="row">
 
                 <div class="col-md-12">
-                  <p id="demo"></p>
                   <div class="card">
                     <div class="card-header">
                       <h3 class="card-title">Add Data Table</h3>
@@ -332,7 +334,7 @@ require_once "connect.php";
                     </div>
                       <div class="form-group">
                         <label for="exampleInputBorder">MailGroup</label>
-                        <input type="text" class="form-control form-control-border" id="mail_mailgroup" name="mail_mailgroupz" value="<?php echo $resultedit['MailGroup']; ?>" autocomplete="off" readonly>
+                        <input type="text" class="form-control form-control-border" id="mail_mailgroup" name="mail_mailgroup" value="<?php echo $resultedit['MailGroup']; ?>" autocomplete="off" readonly>
                       </div>
 
                       <div class="form-group">
@@ -373,7 +375,7 @@ require_once "connect.php";
                         <label for="exampleInputBorder">Time</label>
                         <!--- somewhere within <body> -->
                           <!-- <div class="example7"></div> -->
-                          <input class="example7-input form-control form-control-border" id="mail_corn" name="mail_cornz" value="<?php echo $resultedit['CRON']; ?>" readonly/>
+                          <input class="example7-input form-control form-control-border" id="mail_corn" name="mail_corn" value="<?php echo $resultedit['CRON']; ?>" readonly/>
                       </div>
 
                       <div class="col-md-6">
@@ -426,7 +428,7 @@ require_once "connect.php";
                           $result2 = sqlsrv_query($conn, $sql2); 
                         ?>
                         <div class="select2-purple">
-                          <select class="select2" multiple="multiple" data-dropdown-css-class="select2-purple" data-placeholder="Select a CC" style="width: 100%;" name="mail_mailcc[]">
+                          <select class="select2" multiple="multiple" data-dropdown-css-class="select2-purple" data-placeholder="Select a CC" style="width: 100%;" name="mail_mailcc[]" id="mail_mailcc">
                             <?php while ($row2 = sqlsrv_fetch_array($result2, SQLSRV_FETCH_ASSOC)) {?>
                               <option 
                               value="<?php echo $row2["email"]; ?>"
@@ -446,7 +448,7 @@ require_once "connect.php";
                           $result3 = sqlsrv_query($conn, $sql3);
                         ?>
                         <div class="select2-purple">
-                          <select class="select2" multiple="multiple" data-dropdown-css-class="select2-purple" data-placeholder="Select a BCC" style="width: 100%;" name="mail_mailbcc[]">
+                          <select class="select2" multiple="multiple" data-dropdown-css-class="select2-purple" data-placeholder="Select a BCC" style="width: 100%;" name="mail_mailbcc[]" id="mail_mailbcc">
                             <?php while ($row3 = sqlsrv_fetch_array($result3, SQLSRV_FETCH_ASSOC)) {?>
                               <option 
                               value="<?php echo $row3["email"]; ?>"
@@ -484,7 +486,8 @@ require_once "connect.php";
                         
                     </div>
                     <div class="col-md-6 text-right">
-                      <button id="testbtn" type="button" class="btn btn-block btn-outline-warning" onclick="fncAction1()" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Order">Test Send</button>
+                      <button id="testModel" type="button" class="btn btn-block btn-outline-warning" data-toggle="modal" data-target="#modal-check-test" onclick="addMailModel()">Preview and Sending</button>
+                      <!--<button id="testbtn" type="button" class="btn btn-block btn-outline-warning" onclick="fncAction1()" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Order">Test Send</button>-->
                       <button type="button" class="btn btn-block btn-outline-primary" onclick="fncAction2()">Update</button>
                     </div>
                   </div>
@@ -522,7 +525,8 @@ require_once "connect.php";
                 </thead>
                 <tbody>
                 <?php
-                    $sqlapi = "SELECT * FROM idviewer";
+                    $sqlapi = "SELECT [workbook],[owner],[project],[tags],[location],[idviewer].[id],[idviewer].[name],[contentUrl],[createdAt],[updatedAt],[viewUrlName] 
+                    FROM idviewer INNER JOIN tableau_alluser ON idviewer.[owner] = tableau_alluser.id WHERE tableau_alluser.email ='$_SESSION[email]'";
                     $resultapi = sqlsrv_query($conn, $sqlapi);
                   echo '<tr>';
                   while ($rowapi = sqlsrv_fetch_array($resultapi, SQLSRV_FETCH_ASSOC)) {
@@ -545,6 +549,34 @@ require_once "connect.php";
             </div>
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+      
+      <div class="modal fade" id="modal-check-test">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Verify that the recipient's name is correct?</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>to :</p> 
+              <p id="demo"></p>
+              <p>CC :</p> 
+              <p id="demoCC"></p>
+              <p>BCC :</p> 
+              <p id="demoBCC"></p>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+              <button id="testbtn" type="button" class="btn btn-outline-info" onclick="fncAction1()" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Order">Correct</button>
             </div>
           </div>
           <!-- /.modal-content -->
@@ -656,11 +688,24 @@ $(function () {
       setTimeout(() => {
         btn.removeAttr("disabled");
         btn.html(
-        'Test Send'
+        'Correct'
       );
       }, 8000)
     });
   });
+  
+  function addMailModel() {
+    var options = document.getElementById('mail_mailto').selectedOptions;
+    var optionsCC = document.getElementById('mail_mailcc').selectedOptions;
+    var optionsBCC = document.getElementById('mail_mailbcc').selectedOptions;
+    var values = Array.from(options).map(({ value }) => value);
+    var valuesCC = Array.from(optionsCC).map(({ value }) => value);
+    var valuesBCC = Array.from(optionsBCC).map(({ value }) => value);
+    console.log(values);
+    document.getElementById("demo").innerHTML = values;
+    document.getElementById("demoCC").innerHTML = valuesCC;
+    document.getElementById("demoBCC").innerHTML = valuesBCC;
+  }
 </script>
 <script>
   $(function () {
@@ -689,7 +734,7 @@ $(function () {
 <script type="text/javascript">
   $(function(){
     $('.example7').jqCron({
-        enabled_minute: true,
+        enabled_minute: false,
         multiple_dom: true,
         multiple_month: true,
         multiple_mins: true,
@@ -697,14 +742,14 @@ $(function () {
         multiple_time_hours: true,
         multiple_time_minutes: true,
         default_period: 'week',
-        default_value: '15 10-12 * * 1-5',
+        default_value: '0 10 * * *',
         bind_to: $('.example7-input'),
         bind_method: {
             set: function($element, value) {
                 $element.val(value);
             }
         },
-        no_reset_button: false,
+        no_reset_button: true,
         lang: 'en'
     });
 });

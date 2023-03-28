@@ -17,12 +17,12 @@ require_once "connect.php";
   <title>Tableau Automation Management</title>
   <link rel="icon" type="image/x-icon" href="dist/img/favicon.ico">
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:wght@100&display=swap">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
-    <!-- DataTables -->
+  <!-- DataTables -->
   <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
@@ -174,7 +174,7 @@ require_once "connect.php";
           <div class="col-md-12">
 
             <!-- general form elements -->
-            <div class="card card-primary">
+            <div class="card card-info">
               <div class="card-header">
                 <h3 class="card-title">Dashboard Email Notification</h3>
               </div>
@@ -219,7 +219,7 @@ require_once "connect.php";
                           <th>Enable</th>
                           <th>MailGroup</th>
                           <th>type</th>
-                          <th>ID</th>
+                          <th>Dashboard ID</th>
                           <th>ImageWidth</th>
                           <th>filterName</th>
                           <th>filterValue</th>
@@ -276,7 +276,7 @@ require_once "connect.php";
                           <th>Enable</th>
                           <th>MailGroup</th>
                           <th>type</th>
-                          <th>ID</th>
+                          <th>Dashboard ID</th>
                           <th>ImageWidth</th>
                           <th>filterName</th>
                           <th>filterValue</th>
@@ -303,7 +303,7 @@ require_once "connect.php";
                           <th>Enable</th>
                           <th>MailGroup</th>
                           <th>type</th>
-                          <th>ID</th>
+                          <th>Dashboard ID</th>
                           <th>ImageWidth</th>
                           <th>filterName</th>
                           <th>filterValue</th>
@@ -358,7 +358,7 @@ require_once "connect.php";
                           <th>Enable</th>
                           <th>MailGroup</th>
                           <th>type</th>
-                          <th>ID</th>
+                          <th>Dashboard ID</th>
                           <th>ImageWidth</th>
                           <th>filterName</th>
                           <th>filterValue</th>
@@ -414,7 +414,7 @@ require_once "connect.php";
           <div class="col-md-12">
 
             <!-- general form elements -->
-            <div class="card card-success">
+            <div class="card card-success border-success mb-3">
               <div class="card-header">
                 <h3 class="card-title">Dashboard Line Notification</h3>
               </div>
@@ -450,8 +450,8 @@ require_once "connect.php";
                           <tr>
                             <th>NO</th>
                             <th>Enable</th>
-                            <th>DashboardName</th>
-                            <th>ViewId</th>
+                            <th>Dashboard Name</th>
+                            <th>Dashboard ID</th>
                             <th>Token</th>
                             <th>FilterName</th>
                             <th>FilterValue</th>
@@ -492,8 +492,8 @@ require_once "connect.php";
                         <tr>
                           <th>NO</th>
                           <th>Enable</th>
-                          <th>DashboardName</th>
-                          <th>ViewId</th>
+                          <th>Dashboard Name</th>
+                          <th>Dashboard ID</th>
                           <th>Token</th>
                           <th>FilterName</th>
                           <th>FilterValue</th>
@@ -512,7 +512,7 @@ require_once "connect.php";
                           <tr>
                             <th>NO</th>
                             <th>Enable</th>
-                            <th>DashboardName</th>
+                            <th>Dashboard ID</th>
                             <th>ViewId</th>
                             <th>Token</th>
                             <th>FilterName</th>
@@ -552,7 +552,7 @@ require_once "connect.php";
                         <tr>
                           <th>NO</th>
                           <th>Enable</th>
-                          <th>DashboardName</th>
+                          <th>Dashboard ID</th>
                           <th>ViewId</th>
                           <th>Token</th>
                           <th>FilterName</th>

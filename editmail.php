@@ -78,6 +78,96 @@ $sqleditallmail = "UPDATE mailnoti SET
                             WHERE [MailGroup] = '".$mailgroup."' ";
 $paramsallmail = array($mailfrom,$mailto_value,$mailcc_value,$mailbcc_value,$mailsubject,$mailcontent);
 
+##Piep Array Mail to
+$new_arr = array_map('trim', explode(',', $mailto_value));
+foreach($new_arr as $newtext){
+    $newtext_value.= "'".$newtext."',"; 
+}
+$cleanText = substr($newtext_value, 0, -1);
+$sqlNewtext = "SELECT * FROM [dbo].[othermail] WHERE [mail] in ($cleanText) AND [MailGroup] = '".$mailgroup."' ";
+$resultNewtext = sqlsrv_query($conn , $sqlNewtext);
+// while ($row = sqlsrv_fetch_array($resultNewtext, SQLSRV_FETCH_ASSOC)){
+//             $v = trim($row["mail"]);
+//             $indexCompleted = array_search($v, $new_arr);
+//             unset($new_arr[$indexCompleted]);
+//         };
+$clerSQL = "DELETE FROM othermail WHERE [no] = ? ";
+$paramsclear = array($_GET['no']);
+$stmtdelete = sqlsrv_query( $conn, $clerSQL, $paramsclear);
+foreach($new_arr as $new_arr_r){
+    if (strpos($new_arr_r,'@kubota.com') !== false){
+                
+    }else{
+        if ($mailto_value === ''){
+
+        }else{
+            $saveMail = "INSERT INTO othermail ([mail],[no],[MailGroup],[created]) VALUES (?,'".$_GET['no']."',?,?)";
+            $paramsMail = array($new_arr_r,$mailgroup,date("Y-m-d H:i:s"));
+            $stmtmail = sqlsrv_query( $conn, $saveMail, $paramsMail);
+        }
+    }
+}
+
+##Piep Array Mail CC to
+$new_mailcc_arr = array_map('trim', explode(',', $mailcc_value));
+foreach($new_mailcc_arr as $new_mailcc_text){
+    $new_mailcc_text_value.= "'".$new_mailcc_text."',"; 
+}
+$mailcc_cleanText = substr($new_mailcc_text_value, 0, -1);
+$sqlNewmailcctext = "SELECT * FROM [dbo].[othermailCC] WHERE [mail] in ($mailcc_cleanText) AND [MailGroup] = '".$mailgroup."' ";
+$resultNewmailcctext = sqlsrv_query($conn , $sqlNewmailcctext);
+// while ($rowNewCC = sqlsrv_fetch_array($resultNewmailcctext, SQLSRV_FETCH_ASSOC)){
+//             $vCC = trim($rowNewCC["mail"]);
+//             $indexCompletedCC = array_search($vCC, $new_mailcc_arr);
+//             unset($new_mailcc_arr[$indexCompletedCC]);
+//         };
+$clerSQLCC = "DELETE FROM othermailCC WHERE [no] = ? ";
+$paramsclearCC = array($_GET['no']);
+$stmtdeleteCC = sqlsrv_query( $conn, $clerSQLCC, $paramsclearCC);
+foreach($new_mailcc_arr as $new_mailcc_arr_r){
+    if (strpos($new_mailcc_arr_r,'@kubota.com') !== false){
+                
+    }else{
+        if ($mailcc_value === ''){
+
+        }else{
+            $saveMailCC = "INSERT INTO othermailCC ([mail],[no],[MailGroup],[created]) VALUES (?,'".$_GET['no']."',?,?)";
+            $paramsMailCC = array($new_mailcc_arr_r,$mailgroup,date("Y-m-d H:i:s"));
+            $stmtmailCC = sqlsrv_query( $conn, $saveMailCC, $paramsMailCC);
+        }
+    }
+}
+
+##Piep Array Mail BCC to
+$new_mailbcc_arr = array_map('trim', explode(',', $mailbcc_value));
+foreach($new_mailbcc_arr as $new_mailbcc_text){
+    $new_mailbcc_text_value.= "'".$new_mailbcc_text."',"; 
+}
+$mailbcc_cleanText = substr($new_mailbcc_text_value, 0, -1);
+$sqlNewmailbcctext = "SELECT * FROM [dbo].[othermailBCC] WHERE [mail] in ($mailbcc_cleanText) AND [MailGroup] = '".$mailgroup."' ";
+$resultNewmailbcctext = sqlsrv_query($conn , $sqlNewmailbcctext);
+// while ($rowNewBCC = sqlsrv_fetch_array($resultNewmailbcctext, SQLSRV_FETCH_ASSOC)){
+//             $vBCC = trim($rowNewCC["mail"]);
+//             $indexCompletedCC = array_search($vBCC, $new_mailbcc_arr);
+//             unset($new_mailbcc_arr[$indexCompletedBCC]);
+//         };
+$clerSQLBCC = "DELETE FROM othermailBCC WHERE [no] = ? ";
+$paramsclearBCC = array($_GET['no']);
+$stmtdeleteBCC = sqlsrv_query( $conn, $clerSQLBCC, $paramsclearBCC);
+foreach($new_mailbcc_arr as $new_mailbcc_arr_r){
+    if (strpos($new_mailbcc_arr_r,'@kubota.com') !== false){
+                
+    }else{
+        if ($mailbcc_value === ''){
+
+        }else{
+            $saveMailBCC = "INSERT INTO othermailBCC ([mail],[no],[MailGroup],[created]) VALUES (?,'".$_GET['no']."',?,?)";
+            $paramsMailBCC = array($new_mailbcc_arr_r,$mailgroup,date("Y-m-d H:i:s"));
+            $stmtmailBCC = sqlsrv_query( $conn, $saveMailBCC, $paramsMailBCC);
+        }
+    }
+}
+
 $sqlselect = "SELECT * FROM mailnoti WHERE no = '".$_GET['no']."' ";
 $queryselect = sqlsrv_query($conn , $sqlselect);
 $resultselect = sqlsrv_fetch_array($queryselect, SQLSRV_FETCH_ASSOC);
