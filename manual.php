@@ -143,9 +143,15 @@ require_once "connect.php";
                 </a>
               </li>
               <li class="nav-item">
-                <a href="line" class="nav-link active">
+                <a href="line" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Line</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="manual" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Manual</p>
                 </a>
               </li>
             </ul>
@@ -178,7 +184,9 @@ require_once "connect.php";
 
     <!-- Main content -->
     <section class="content">
-    <iframe src="https://docs.google.com/document/d/e/2PACX-1vSGXCQzZV_6a3kt_aaV4vRzSkO732RcLiau5oqthCFpJA7B4V2cdaY2z6SflCPhA8bjCKyJQLygt9Ld/pub?embedded=true"></iframe>
+    <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 129.4118%;">
+        <iframe src="https://docs.google.com/document/d/e/2PACX-1vSGXCQzZV_6a3kt_aaV4vRzSkO732RcLiau5oqthCFpJA7B4V2cdaY2z6SflCPhA8bjCKyJQLygt9Ld/pub?embedded=true" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen></iframe>
+    </div>
     </section>
     <!-- /.content -->
   </div>

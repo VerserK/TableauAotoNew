@@ -146,6 +146,12 @@ require_once "connect.php";
                   <p>Line</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="manual" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Manual</p>
+                </a>
+              </li>
             </ul>
           </li>
         </ul>
