@@ -175,7 +175,7 @@ require_once "connect.php";
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
-              <li class="breadcrumb-item active">Line</li>
+              <li class="breadcrumb-item active">Manual</li>
             </ol>
           </div>
         </div>
@@ -184,9 +184,34 @@ require_once "connect.php";
 
     <!-- Main content -->
     <section class="content">
-    <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 129.4118%;">
-        <iframe src="https://docs.google.com/document/d/e/2PACX-1vSGXCQzZV_6a3kt_aaV4vRzSkO732RcLiau5oqthCFpJA7B4V2cdaY2z6SflCPhA8bjCKyJQLygt9Ld/pub?embedded=true" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen></iframe>
-    </div>
+      <style>
+      .container {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        padding-top: 56.25%; /* 16:9 Aspect Ratio */
+      }
+
+      .responsive-iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 200%;
+        height: 100%;
+        border: none;
+      }
+      </style>
+      <!-- general form elements -->
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div class="row">
+                  <div class="container">
+                      <iframe class="responsive-iframe" src="https://docs.google.com/document/d/e/2PACX-1vSGXCQzZV_6a3kt_aaV4vRzSkO732RcLiau5oqthCFpJA7B4V2cdaY2z6SflCPhA8bjCKyJQLygt9Ld/pub?embedded=true" frameborder="0"></iframe>
+                  </div>
+                </div>
+              </div>
     </section>
     <!-- /.content -->
   </div>
